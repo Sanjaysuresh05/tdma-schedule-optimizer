@@ -1,0 +1,493 @@
+{
+  "schema": "vmn-tdma-schedule/1",
+  "generator": "tdma_brain 1.0.0",
+  "radio_range_m": 500.0,
+  "num_nodes": 16,
+  "num_slots": 4,
+  "lower_bound": null,
+  "proven_optimal": false,
+  "optimality_reason": "baseline, not an optimiser output",
+  "found_by": "DSATUR on G (distance-1 only) - baseline",
+  "node_order": [
+    "Node_01",
+    "Node_02",
+    "Node_03",
+    "Node_04",
+    "Node_05",
+    "Node_06",
+    "Node_07",
+    "Node_08",
+    "Node_09",
+    "Node_10",
+    "Node_11",
+    "Node_12",
+    "Node_13",
+    "Node_14",
+    "Node_15",
+    "Node_16"
+  ],
+  "nodes": [
+    {
+      "name": "Node_01",
+      "nem_id": 1,
+      "x": 0.0,
+      "y": 0.0,
+      "slot": 1,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_02",
+      "nem_id": 2,
+      "x": 300.0,
+      "y": 0.0,
+      "slot": 2,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_03",
+      "nem_id": 3,
+      "x": 600.0,
+      "y": 0.0,
+      "slot": 3,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_04",
+      "nem_id": 4,
+      "x": 900.0,
+      "y": 0.0,
+      "slot": 2,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_05",
+      "nem_id": 5,
+      "x": 0.0,
+      "y": 300.0,
+      "slot": 3,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_06",
+      "nem_id": 6,
+      "x": 300.0,
+      "y": 300.0,
+      "slot": 0,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_07",
+      "nem_id": 7,
+      "x": 600.0,
+      "y": 300.0,
+      "slot": 1,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_08",
+      "nem_id": 8,
+      "x": 900.0,
+      "y": 300.0,
+      "slot": 0,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_09",
+      "nem_id": 9,
+      "x": 0.0,
+      "y": 600.0,
+      "slot": 1,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_10",
+      "nem_id": 10,
+      "x": 300.0,
+      "y": 600.0,
+      "slot": 2,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_11",
+      "nem_id": 11,
+      "x": 600.0,
+      "y": 600.0,
+      "slot": 3,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_12",
+      "nem_id": 12,
+      "x": 900.0,
+      "y": 600.0,
+      "slot": 2,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_13",
+      "nem_id": 13,
+      "x": 0.0,
+      "y": 900.0,
+      "slot": 3,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_14",
+      "nem_id": 14,
+      "x": 300.0,
+      "y": 900.0,
+      "slot": 0,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_15",
+      "nem_id": 15,
+      "x": 600.0,
+      "y": 900.0,
+      "slot": 1,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_16",
+      "nem_id": 16,
+      "x": 900.0,
+      "y": 900.0,
+      "slot": 0,
+      "extra_slots": []
+    }
+  ],
+  "slot_of": {
+    "Node_06": 0,
+    "Node_08": 0,
+    "Node_14": 0,
+    "Node_16": 0,
+    "Node_01": 1,
+    "Node_07": 1,
+    "Node_09": 1,
+    "Node_15": 1,
+    "Node_02": 2,
+    "Node_04": 2,
+    "Node_10": 2,
+    "Node_12": 2,
+    "Node_03": 3,
+    "Node_05": 3,
+    "Node_11": 3,
+    "Node_13": 3
+  },
+  "matrix": [
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0
+    ]
+  ],
+  "matrix_max_reuse": null,
+  "links": [
+    [
+      "Node_01",
+      "Node_02",
+      300.0
+    ],
+    [
+      "Node_01",
+      "Node_05",
+      300.0
+    ],
+    [
+      "Node_01",
+      "Node_06",
+      424.264069
+    ],
+    [
+      "Node_02",
+      "Node_03",
+      300.0
+    ],
+    [
+      "Node_02",
+      "Node_05",
+      424.264069
+    ],
+    [
+      "Node_02",
+      "Node_06",
+      300.0
+    ],
+    [
+      "Node_02",
+      "Node_07",
+      424.264069
+    ],
+    [
+      "Node_03",
+      "Node_04",
+      300.0
+    ],
+    [
+      "Node_03",
+      "Node_06",
+      424.264069
+    ],
+    [
+      "Node_03",
+      "Node_07",
+      300.0
+    ],
+    [
+      "Node_03",
+      "Node_08",
+      424.264069
+    ],
+    [
+      "Node_04",
+      "Node_07",
+      424.264069
+    ],
+    [
+      "Node_04",
+      "Node_08",
+      300.0
+    ],
+    [
+      "Node_05",
+      "Node_06",
+      300.0
+    ],
+    [
+      "Node_05",
+      "Node_09",
+      300.0
+    ],
+    [
+      "Node_05",
+      "Node_10",
+      424.264069
+    ],
+    [
+      "Node_06",
+      "Node_07",
+      300.0
+    ],
+    [
+      "Node_06",
+      "Node_09",
+      424.264069
+    ],
+    [
+      "Node_06",
+      "Node_10",
+      300.0
+    ],
+    [
+      "Node_06",
+      "Node_11",
+      424.264069
+    ],
+    [
+      "Node_07",
+      "Node_08",
+      300.0
+    ],
+    [
+      "Node_07",
+      "Node_10",
+      424.264069
+    ],
+    [
+      "Node_07",
+      "Node_11",
+      300.0
+    ],
+    [
+      "Node_07",
+      "Node_12",
+      424.264069
+    ],
+    [
+      "Node_08",
+      "Node_11",
+      424.264069
+    ],
+    [
+      "Node_08",
+      "Node_12",
+      300.0
+    ],
+    [
+      "Node_09",
+      "Node_10",
+      300.0
+    ],
+    [
+      "Node_09",
+      "Node_13",
+      300.0
+    ],
+    [
+      "Node_09",
+      "Node_14",
+      424.264069
+    ],
+    [
+      "Node_10",
+      "Node_11",
+      300.0
+    ],
+    [
+      "Node_10",
+      "Node_13",
+      424.264069
+    ],
+    [
+      "Node_10",
+      "Node_14",
+      300.0
+    ],
+    [
+      "Node_10",
+      "Node_15",
+      424.264069
+    ],
+    [
+      "Node_11",
+      "Node_12",
+      300.0
+    ],
+    [
+      "Node_11",
+      "Node_14",
+      424.264069
+    ],
+    [
+      "Node_11",
+      "Node_15",
+      300.0
+    ],
+    [
+      "Node_11",
+      "Node_16",
+      424.264069
+    ],
+    [
+      "Node_12",
+      "Node_15",
+      424.264069
+    ],
+    [
+      "Node_12",
+      "Node_16",
+      300.0
+    ],
+    [
+      "Node_13",
+      "Node_14",
+      300.0
+    ],
+    [
+      "Node_14",
+      "Node_15",
+      300.0
+    ],
+    [
+      "Node_15",
+      "Node_16",
+      300.0
+    ]
+  ],
+  "verification": {
+    "ok": false,
+    "pairs_checked": 24,
+    "violations": [
+      "slot 0: Node_06 and Node_08 collide at common neighbour Node_03 (hidden terminal)",
+      "slot 0: Node_06 and Node_14 collide at common neighbour Node_09 (hidden terminal)",
+      "slot 0: Node_06 and Node_16 collide at common neighbour Node_11 (hidden terminal)",
+      "slot 0: Node_08 and Node_14 collide at common neighbour Node_11 (hidden terminal)",
+      "slot 0: Node_08 and Node_16 collide at common neighbour Node_11 (hidden terminal)",
+      "slot 0: Node_14 and Node_16 collide at common neighbour Node_11 (hidden terminal)",
+      "slot 1: Node_01 and Node_07 collide at common neighbour Node_02 (hidden terminal)",
+      "slot 1: Node_01 and Node_09 collide at common neighbour Node_05 (hidden terminal)",
+      "slot 1: Node_07 and Node_09 collide at common neighbour Node_06 (hidden terminal)",
+      "slot 1: Node_07 and Node_15 collide at common neighbour Node_10 (hidden terminal)",
+      "slot 1: Node_09 and Node_15 collide at common neighbour Node_10 (hidden terminal)",
+      "slot 2: Node_02 and Node_04 collide at common neighbour Node_03 (hidden terminal)",
+      "slot 2: Node_02 and Node_10 collide at common neighbour Node_05 (hidden terminal)",
+      "slot 2: Node_02 and Node_12 collide at common neighbour Node_07 (hidden terminal)",
+      "slot 2: Node_04 and Node_10 collide at common neighbour Node_07 (hidden terminal)",
+      "slot 2: Node_04 and Node_12 collide at common neighbour Node_07 (hidden terminal)",
+      "slot 2: Node_10 and Node_12 collide at common neighbour Node_07 (hidden terminal)",
+      "slot 3: Node_03 and Node_05 collide at common neighbour Node_02 (hidden terminal)",
+      "slot 3: Node_03 and Node_11 collide at common neighbour Node_06 (hidden terminal)",
+      "slot 3: Node_05 and Node_11 collide at common neighbour Node_06 (hidden terminal)",
+      "slot 3: Node_05 and Node_13 collide at common neighbour Node_09 (hidden terminal)",
+      "slot 3: Node_11 and Node_13 collide at common neighbour Node_10 (hidden terminal)"
+    ]
+  },
+  "experiment": "E3 distance-1 colouring baseline (hidden terminals NOT handled)"
+}

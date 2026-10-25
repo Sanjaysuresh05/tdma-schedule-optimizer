@@ -1,0 +1,51 @@
+================================================================
+ TDMA TOPOLOGY OPTIMIZATION REPORT 
+================================================================
+Total Nodes Processed : 16
+Configured Radio Range : 500.0 meters
+Optimized Frame Length : 16 unique timeslots (Lower is better)
+Theoretical Lower Bound: 16 timeslots (largest 2-hop clique) -> PROVEN OPTIMAL (frame length = lower bound)
+Spatial Reuse Factor   : 1.00 transmitters/slot (16 nodes in 16 slots; one-node-per-slot TDMA would need 16)
+Selected Heuristic     : DSATUR (portfolio of 7 runs, 1.5 ms)
+-----------------------------------------------------------------
+NODE -> SLOT ASSIGNMENTS:
+ Node_01: Slot 0
+ Node_02: Slot 1
+ Node_03: Slot 2
+ Node_04: Slot 3
+ Node_05: Slot 4
+ Node_06: Slot 5
+ Node_07: Slot 6
+ Node_08: Slot 7
+ Node_09: Slot 8
+ Node_10: Slot 9
+ Node_11: Slot 10
+ Node_12: Slot 11
+ Node_13: Slot 12
+ Node_14: Slot 13
+ Node_15: Slot 14
+ Node_16: Slot 15
+
+STRUCTURAL TDMA SCHEDULE MATRIX (Slot x Node Boolean Matrix):
+Slot \ Node | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | 16
+-------------------------------------------------------------------------------------------
+Slot 00     |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 01     |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 02     |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 03     |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 04     |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 05     |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 06     |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 07     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 08     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 09     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 10     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0
+Slot 11     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0
+Slot 12     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0
+Slot 13     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0
+Slot 14     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0
+Slot 15     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1
+-------------------------------------------------------------------------------------------
+Independent verification: 0 same-slot pairs checked, 0 conflicts (1-hop and 2-hop)
+Execution finalized cleanly. Schedule verified conflict-free.
+===============================================================

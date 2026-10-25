@@ -1,0 +1,316 @@
+{
+  "schema": "vmn-tdma-schedule/1",
+  "generator": "tdma_brain 1.0.0",
+  "radio_range_m": 500.0,
+  "num_nodes": 16,
+  "num_slots": 3,
+  "lower_bound": 3,
+  "proven_optimal": true,
+  "optimality_reason": "K = lower bound (max 2-hop clique = 3)",
+  "found_by": "DSATUR",
+  "node_order": [
+    "Node_01",
+    "Node_02",
+    "Node_03",
+    "Node_04",
+    "Node_05",
+    "Node_06",
+    "Node_07",
+    "Node_08",
+    "Node_09",
+    "Node_10",
+    "Node_11",
+    "Node_12",
+    "Node_13",
+    "Node_14",
+    "Node_15",
+    "Node_16"
+  ],
+  "nodes": [
+    {
+      "name": "Node_01",
+      "nem_id": 1,
+      "x": 0.0,
+      "y": 0.0,
+      "slot": 0,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_02",
+      "nem_id": 2,
+      "x": 400.0,
+      "y": 0.0,
+      "slot": 1,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_03",
+      "nem_id": 3,
+      "x": 800.0,
+      "y": 0.0,
+      "slot": 2,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_04",
+      "nem_id": 4,
+      "x": 1200.0,
+      "y": 0.0,
+      "slot": 0,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_05",
+      "nem_id": 5,
+      "x": 1600.0,
+      "y": 0.0,
+      "slot": 1,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_06",
+      "nem_id": 6,
+      "x": 2000.0,
+      "y": 0.0,
+      "slot": 2,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_07",
+      "nem_id": 7,
+      "x": 2400.0,
+      "y": 0.0,
+      "slot": 0,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_08",
+      "nem_id": 8,
+      "x": 2800.0,
+      "y": 0.0,
+      "slot": 1,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_09",
+      "nem_id": 9,
+      "x": 3200.0,
+      "y": 0.0,
+      "slot": 2,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_10",
+      "nem_id": 10,
+      "x": 3600.0,
+      "y": 0.0,
+      "slot": 0,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_11",
+      "nem_id": 11,
+      "x": 4000.0,
+      "y": 0.0,
+      "slot": 1,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_12",
+      "nem_id": 12,
+      "x": 4400.0,
+      "y": 0.0,
+      "slot": 2,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_13",
+      "nem_id": 13,
+      "x": 4800.0,
+      "y": 0.0,
+      "slot": 0,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_14",
+      "nem_id": 14,
+      "x": 5200.0,
+      "y": 0.0,
+      "slot": 1,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_15",
+      "nem_id": 15,
+      "x": 5600.0,
+      "y": 0.0,
+      "slot": 2,
+      "extra_slots": []
+    },
+    {
+      "name": "Node_16",
+      "nem_id": 16,
+      "x": 6000.0,
+      "y": 0.0,
+      "slot": 0,
+      "extra_slots": []
+    }
+  ],
+  "slot_of": {
+    "Node_01": 0,
+    "Node_02": 1,
+    "Node_03": 2,
+    "Node_04": 0,
+    "Node_05": 1,
+    "Node_06": 2,
+    "Node_07": 0,
+    "Node_08": 1,
+    "Node_09": 2,
+    "Node_10": 0,
+    "Node_11": 1,
+    "Node_12": 2,
+    "Node_13": 0,
+    "Node_14": 1,
+    "Node_15": 2,
+    "Node_16": 0
+  },
+  "matrix": [
+    [
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0
+    ]
+  ],
+  "matrix_max_reuse": null,
+  "links": [
+    [
+      "Node_01",
+      "Node_02",
+      400.0
+    ],
+    [
+      "Node_02",
+      "Node_03",
+      400.0
+    ],
+    [
+      "Node_03",
+      "Node_04",
+      400.0
+    ],
+    [
+      "Node_04",
+      "Node_05",
+      400.0
+    ],
+    [
+      "Node_05",
+      "Node_06",
+      400.0
+    ],
+    [
+      "Node_06",
+      "Node_07",
+      400.0
+    ],
+    [
+      "Node_07",
+      "Node_08",
+      400.0
+    ],
+    [
+      "Node_08",
+      "Node_09",
+      400.0
+    ],
+    [
+      "Node_09",
+      "Node_10",
+      400.0
+    ],
+    [
+      "Node_10",
+      "Node_11",
+      400.0
+    ],
+    [
+      "Node_11",
+      "Node_12",
+      400.0
+    ],
+    [
+      "Node_12",
+      "Node_13",
+      400.0
+    ],
+    [
+      "Node_13",
+      "Node_14",
+      400.0
+    ],
+    [
+      "Node_14",
+      "Node_15",
+      400.0
+    ],
+    [
+      "Node_15",
+      "Node_16",
+      400.0
+    ]
+  ],
+  "verification": {
+    "ok": true,
+    "pairs_checked": 35,
+    "violations": []
+  }
+}

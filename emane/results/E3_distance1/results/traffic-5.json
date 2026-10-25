@@ -1,0 +1,54 @@
+{
+ "nem": 5,
+ "sent": 825,
+ "send_errors": 0,
+ "rate": 40.0,
+ "seed": 0,
+ "duration": 20.0,
+ "size": 64,
+ "start_at": 1792961946.763335,
+ "started": 1792961946.7638218,
+ "start_skew_ms": 0.4868507385253906,
+ "from": {
+  "1": {
+   "received": 693,
+   "unique": 693,
+   "lat_ms_mean": 3.1304765050505052,
+   "lat_ms_p50": 3.075673,
+   "lat_ms_p99": 5.172391,
+   "lat_ms_max": 5.286308
+  },
+  "2": {
+   "received": 697,
+   "unique": 697,
+   "lat_ms_mean": 3.205596272596843,
+   "lat_ms_p50": 3.166655,
+   "lat_ms_p99": 5.175096,
+   "lat_ms_max": 5.442143
+  },
+  "6": {
+   "received": 785,
+   "unique": 785,
+   "lat_ms_mean": 3.3087346025477706,
+   "lat_ms_p50": 3.262451,
+   "lat_ms_p99": 5.195534,
+   "lat_ms_max": 25.002122
+  },
+  "9": {
+   "received": 679,
+   "unique": 679,
+   "lat_ms_mean": 3.161425751104565,
+   "lat_ms_p50": 3.137952,
+   "lat_ms_p99": 5.18193,
+   "lat_ms_max": 5.393701
+  },
+  "10": {
+   "received": 660,
+   "unique": 660,
+   "lat_ms_mean": 3.2713929772727273,
+   "lat_ms_p50": 3.23855,
+   "lat_ms_p99": 5.156195,
+   "lat_ms_max": 5.329049
+  }
+ }
+}

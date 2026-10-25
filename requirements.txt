@@ -1,0 +1,9 @@
+# Part 1 (the CLI) needs only networkx.
+networkx>=3.0
+# Tests, benchmarks, figures and documentation:
+pytest>=7
+scipy>=1.9        # independent ILP cross-check in the test-suite
+matplotlib>=3.6   # figures
+lxml>=4.9         # XSD validation of the EMANE schedule (bridge tests)
+markdown>=3.4     # documentation build
+# Part 2 (EMANE 1.5.3) is installed separately: see emane/README.md

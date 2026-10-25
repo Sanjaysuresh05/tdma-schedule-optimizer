@@ -1,0 +1,292 @@
+[
+ {
+  "name": "Node_01",
+  "nem_id": 1,
+  "radio_ip": "10.100.0.1",
+  "backchannel_ip": "10.99.0.1",
+  "x": 0.0,
+  "y": 0.0,
+  "tx_slots": [
+   0
+  ],
+  "neighbours": [
+   2,
+   5,
+   6
+  ]
+ },
+ {
+  "name": "Node_02",
+  "nem_id": 2,
+  "radio_ip": "10.100.0.2",
+  "backchannel_ip": "10.99.0.2",
+  "x": 300.0,
+  "y": 0.0,
+  "tx_slots": [
+   1
+  ],
+  "neighbours": [
+   1,
+   3,
+   5,
+   6,
+   7
+  ]
+ },
+ {
+  "name": "Node_03",
+  "nem_id": 3,
+  "radio_ip": "10.100.0.3",
+  "backchannel_ip": "10.99.0.3",
+  "x": 600.0,
+  "y": 0.0,
+  "tx_slots": [
+   2
+  ],
+  "neighbours": [
+   2,
+   4,
+   6,
+   7,
+   8
+  ]
+ },
+ {
+  "name": "Node_04",
+  "nem_id": 4,
+  "radio_ip": "10.100.0.4",
+  "backchannel_ip": "10.99.0.4",
+  "x": 900.0,
+  "y": 0.0,
+  "tx_slots": [
+   0
+  ],
+  "neighbours": [
+   3,
+   7,
+   8
+  ]
+ },
+ {
+  "name": "Node_05",
+  "nem_id": 5,
+  "radio_ip": "10.100.0.5",
+  "backchannel_ip": "10.99.0.5",
+  "x": 0.0,
+  "y": 300.0,
+  "tx_slots": [
+   3
+  ],
+  "neighbours": [
+   1,
+   2,
+   6,
+   9,
+   10
+  ]
+ },
+ {
+  "name": "Node_06",
+  "nem_id": 6,
+  "radio_ip": "10.100.0.6",
+  "backchannel_ip": "10.99.0.6",
+  "x": 300.0,
+  "y": 300.0,
+  "tx_slots": [],
+  "neighbours": [
+   1,
+   2,
+   3,
+   5,
+   7,
+   9,
+   10,
+   11
+  ]
+ },
+ {
+  "name": "Node_07",
+  "nem_id": 7,
+  "radio_ip": "10.100.0.7",
+  "backchannel_ip": "10.99.0.7",
+  "x": 600.0,
+  "y": 300.0,
+  "tx_slots": [
+   5
+  ],
+  "neighbours": [
+   2,
+   3,
+   4,
+   6,
+   8,
+   10,
+   11,
+   12
+  ]
+ },
+ {
+  "name": "Node_08",
+  "nem_id": 8,
+  "radio_ip": "10.100.0.8",
+  "backchannel_ip": "10.99.0.8",
+  "x": 900.0,
+  "y": 300.0,
+  "tx_slots": [
+   3
+  ],
+  "neighbours": [
+   3,
+   4,
+   7,
+   11,
+   12
+  ]
+ },
+ {
+  "name": "Node_09",
+  "nem_id": 9,
+  "radio_ip": "10.100.0.9",
+  "backchannel_ip": "10.99.0.9",
+  "x": 0.0,
+  "y": 600.0,
+  "tx_slots": [
+   6
+  ],
+  "neighbours": [
+   5,
+   6,
+   10,
+   13,
+   14
+  ]
+ },
+ {
+  "name": "Node_10",
+  "nem_id": 10,
+  "radio_ip": "10.100.0.10",
+  "backchannel_ip": "10.99.0.10",
+  "x": 300.0,
+  "y": 600.0,
+  "tx_slots": [
+   7
+  ],
+  "neighbours": [
+   5,
+   6,
+   7,
+   9,
+   11,
+   13,
+   14,
+   15
+  ]
+ },
+ {
+  "name": "Node_11",
+  "nem_id": 11,
+  "radio_ip": "10.100.0.11",
+  "backchannel_ip": "10.99.0.11",
+  "x": 600.0,
+  "y": 600.0,
+  "tx_slots": [
+   8
+  ],
+  "neighbours": [
+   6,
+   7,
+   8,
+   10,
+   12,
+   14,
+   15,
+   16
+  ]
+ },
+ {
+  "name": "Node_12",
+  "nem_id": 12,
+  "radio_ip": "10.100.0.12",
+  "backchannel_ip": "10.99.0.12",
+  "x": 900.0,
+  "y": 600.0,
+  "tx_slots": [
+   6
+  ],
+  "neighbours": [
+   7,
+   8,
+   11,
+   15,
+   16
+  ]
+ },
+ {
+  "name": "Node_13",
+  "nem_id": 13,
+  "radio_ip": "10.100.0.13",
+  "backchannel_ip": "10.99.0.13",
+  "x": 0.0,
+  "y": 900.0,
+  "tx_slots": [
+   0
+  ],
+  "neighbours": [
+   9,
+   10,
+   14
+  ]
+ },
+ {
+  "name": "Node_14",
+  "nem_id": 14,
+  "radio_ip": "10.100.0.14",
+  "backchannel_ip": "10.99.0.14",
+  "x": 300.0,
+  "y": 900.0,
+  "tx_slots": [
+   1
+  ],
+  "neighbours": [
+   9,
+   10,
+   11,
+   13,
+   15
+  ]
+ },
+ {
+  "name": "Node_15",
+  "nem_id": 15,
+  "radio_ip": "10.100.0.15",
+  "backchannel_ip": "10.99.0.15",
+  "x": 600.0,
+  "y": 900.0,
+  "tx_slots": [
+   2
+  ],
+  "neighbours": [
+   10,
+   11,
+   12,
+   14,
+   16
+  ]
+ },
+ {
+  "name": "Node_16",
+  "nem_id": 16,
+  "radio_ip": "10.100.0.16",
+  "backchannel_ip": "10.99.0.16",
+  "x": 900.0,
+  "y": 900.0,
+  "tx_slots": [
+   0
+  ],
+  "neighbours": [
+   11,
+   12,
+   15
+  ]
+ }
+]

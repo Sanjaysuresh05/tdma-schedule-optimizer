@@ -1,0 +1,11 @@
+[20:58:03] namespaces up: 16 nodes (seed 0, realtime off)
+[20:58:03] all EMANE control ports up
+published 16 pathloss events
+published 16 TDMAScheduleEvent(s) via the protobuf route
+collected statistics from 16 NEM(s); 0 error(s)
+schedule accepted by all NEMs
+[20:58:05] schedule accepted by all NEMs (attempt 1)
+[20:58:05] traffic: 40 pkt/s per node for 20s
+[20:58:30] traffic done
+collected statistics from 16 NEM(s); 0 error(s)
+[20:58:31] experiment complete

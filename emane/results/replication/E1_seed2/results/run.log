@@ -1,0 +1,11 @@
+[21:01:26] namespaces up: 16 nodes (seed 2, realtime off)
+[21:01:26] all EMANE control ports up
+published 16 pathloss events
+published 16 TDMAScheduleEvent(s) via the xml route
+collected statistics from 16 NEM(s); 0 error(s)
+schedule accepted by all NEMs
+[21:01:28] schedule accepted by all NEMs (attempt 1)
+[21:01:28] traffic: 40 pkt/s per node for 20s
+[21:01:53] traffic done
+collected statistics from 16 NEM(s); 0 error(s)
+[21:01:54] experiment complete

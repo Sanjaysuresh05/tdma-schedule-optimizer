@@ -1,0 +1,4 @@
+20:59:01.607048 ERROR Please consider using the realtime scheduler to improve fidelity.
+20:59:01.609582 ERROR OTAManager::open: Unable to set Real Time Priority
+20:59:01.609672 ERROR EventService::open: Unable to set Real Time Priority
+20:59:01.609778 ERROR NEMOTAAdapter::NEMOTAAdapter: Unable to set Priority

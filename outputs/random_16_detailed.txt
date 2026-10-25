@@ -1,0 +1,93 @@
+================================================================
+ TDMA TOPOLOGY OPTIMIZATION REPORT 
+================================================================
+Total Nodes Processed : 16
+Configured Radio Range : 500.0 meters
+Optimized Frame Length : 8 unique timeslots (Lower is better)
+Theoretical Lower Bound: 8 timeslots (largest 2-hop clique) -> PROVEN OPTIMAL (frame length = lower bound)
+Spatial Reuse Factor   : 2.00 transmitters/slot (16 nodes in 8 slots; one-node-per-slot TDMA would need 16)
+Selected Heuristic     : DSATUR (portfolio of 7 runs, 1.1 ms)
+-----------------------------------------------------------------
+NODE -> SLOT ASSIGNMENTS:
+ Node_01: Slot 0
+ Node_02: Slot 1
+ Node_03: Slot 2
+ Node_04: Slot 3   (+ max-reuse slots 1)
+ Node_05: Slot 1
+ Node_06: Slot 4
+ Node_07: Slot 0   (+ max-reuse slots 4, 6)
+ Node_08: Slot 3
+ Node_09: Slot 2   (+ max-reuse slots 5)
+ Node_10: Slot 5
+ Node_11: Slot 6
+ Node_12: Slot 3   (+ max-reuse slots 2, 5, 7)
+ Node_13: Slot 7   (+ max-reuse slots 2)
+ Node_14: Slot 0   (+ max-reuse slots 5)
+ Node_15: Slot 4   (+ max-reuse slots 6)
+ Node_16: Slot 7
+
+STRUCTURAL TDMA SCHEDULE MATRIX (Slot x Node Boolean Matrix):
+Slot \ Node | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | 16
+-------------------------------------------------------------------------------------------
+Slot 00     |  1 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0
+Slot 01     |  0 |  1 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 02     |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 03     |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0
+Slot 04     |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0
+Slot 05     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 06     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0
+Slot 07     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  1
+-------------------------------------------------------------------------------------------
+
+MAX-REUSE SCHEDULE MATRIX (same frame, extra non-conflicting slots):
+Slot \ Node | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | 16
+-------------------------------------------------------------------------------------------
+Slot 00     |  1 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0
+Slot 01     |  0 |  1 |  0 |  1 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0
+Slot 02     |  0 |  0 |  1 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  1 |  1 |  0 |  0 |  0
+Slot 03     |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  0
+Slot 04     |  0 |  0 |  0 |  0 |  0 |  1 |  1 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0
+Slot 05     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  1 |  0 |  1 |  0 |  1 |  0 |  0
+Slot 06     |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  1 |  0 |  0 |  0 |  1 |  0
+Slot 07     |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  1 |  1 |  0 |  0 |  1
+-------------------------------------------------------------------------------------------
+Transmissions per frame: 26 (base schedule: 16); reuse factor 3.25 transmitters/slot
+
+TOPOLOGY:
+ Links (<= 500.0 m)       : 30   (avg degree 3.75, max degree 7)
+ Conflict pairs (G^2)     : 50   (1-hop 30, 2-hop 20)
+ Connected components     : 2
+ Largest 2-hop clique     : 8 -> Node_01, Node_02, Node_03, Node_06, Node_08, Node_10, Node_11, Node_16
+ Optimality               : K = lower bound (max 2-hop clique = 8)
+
+HEURISTIC PORTFOLIO (slots found; lower is better):
+ DSATUR                    8 slots      0.05 ms
+ RLF                       8 slots      0.05 ms
+ Largest-first             8 slots      0.01 ms
+ Smallest-last             8 slots      0.04 ms
+ Connected-BFS             8 slots      0.04 ms
+ Geometric sweep           8 slots      0.01 ms
+ Random greedy x64         8 slots      0.75 ms
+
+SPATIAL REUSE (transmitters sharing each slot):
+ Slot 00: Node_01, Node_07, Node_14
+ Slot 01: Node_02, Node_05
+ Slot 02: Node_03, Node_09
+ Slot 03: Node_04, Node_08, Node_12
+ Slot 04: Node_06, Node_15
+ Slot 05: Node_10
+ Slot 06: Node_11
+ Slot 07: Node_13, Node_16
+ Minimum hop distance between co-slot transmitters: 3 hops (>= 3 required)
+
+SLOT-LEVEL SIMULATION (100 frames, saturated broadcast traffic):
+ Schedule                                       Slots Deliv/frame Deliv/slot Lost/frame Delivery Links OK
+ Optimized distance-2 schedule (this tool)          8        60.0       7.50        0.0   100.0%   100.0%
+ Optimized + max-reuse                              8        76.0       9.50        0.0   100.0%   100.0%
+ Round-robin TDMA (no reuse)                       16        60.0       3.75        0.0   100.0%   100.0%
+ Distance-1 colouring (no hidden-terminal rule)     6        39.0       6.50       21.0    65.0%    65.0%
+ (Lost = receptions destroyed by collisions/hidden terminals or half-duplex; Links OK = directed links with >= 1 delivery)
+Independent verification: 10 same-slot pairs checked, 0 conflicts (1-hop and 2-hop)
+Max-reuse verification  : 30 same-slot pairs checked, 0 conflicts
+Execution finalized cleanly. Schedule verified conflict-free.
+===============================================================

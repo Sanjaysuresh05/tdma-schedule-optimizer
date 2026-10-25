@@ -1,0 +1,23 @@
+{
+ "source": "/mnt/c/Sanjay/Internship/Vaan Magam/tdma-schedule-optimizer/emane/scenarios/inputs/E3_distance1.json",
+ "num_nodes": 16,
+ "num_slots": 4,
+ "frames_per_multiframe": 1,
+ "slot_duration_us": 1000,
+ "slot_overhead_us": 100,
+ "frame_duration_ms": 4.0,
+ "multiframe_duration_ms": 4.0,
+ "frequency_hz": 2400000000,
+ "datarate_bps": 12000000,
+ "bandwidth_hz": 10000000,
+ "tx_power_dbm": 30.0,
+ "bytes_per_slot": 1350,
+ "pathloss_model": "constant",
+ "link_pathloss_db": 90.0,
+ "no_link_pathloss_db": 200.0,
+ "silenced": [],
+ "matrix": "base",
+ "links": 42,
+ "xsd_validation": "valid",
+ "noise_floor_dbm": -100.0
+}
