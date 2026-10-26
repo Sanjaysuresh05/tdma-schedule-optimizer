@@ -7,7 +7,7 @@ A centralized Python **"Brain"** that turns static radio coordinates into a **co
 | Frame length | **9 slots — proven optimal** (a 3×3 block of nodes is pairwise within 2 hops ⇒ ≥ 9) |
 | Collisions | **0** (independent verifier + slot-level simulator + EMANE) |
 | Spatial reuse | 1.78 transmitters/slot (16 nodes in 9 slots instead of 16) |
-| EMANE (Part 2) | schedule accepted by all 16 NEMs; each NEM transmits only in its planned slot; **99.96 %** delivery on links, **0 %** off-links; a deliberately wrong schedule collides exactly as predicted |
+| EMANE (Part 2) | schedule accepted by all 16 NEMs; each sender's frames are heard by its neighbours in its planned slot (99.89 %) and never in unscheduled slots; **99.88 %** delivery on links (99.91 % ± 0.06 over 5 seeds), **0 %** off-links; a deliberately wrong schedule collides exactly as predicted |
 
 > Note: the sample output in the problem statement shows 5 slots; for its own sample input that assignment has 21 two-hop conflicts (e.g. Node_01 and Node_03 share slot 0 but both neighbour Node_02). This tool follows the sample's *format*, and proves 9 is the minimum. Details: `docs/Documentation.pdf` §3.
 
@@ -31,7 +31,7 @@ Useful options: `--verbose` (topology, heuristic portfolio, per-slot reuse), `--
 
 ```bash
 bash emane/install_rootless.sh                 # official EMANE 1.5.3 bundle, no root needed
-bash emane/runner/run_experiments.sh 20 40     # 16 NEMs, experiments E1/E1b/E2/E3
+bash emane/runner/run_experiments.sh 20 40     # 16 NEMs: E1, E1b, E2, E3, E4, E5 + 5-seed replication
 python3 emane/analysis/analyze.py              # -> emane/results/summary.md + figures
 ```
 

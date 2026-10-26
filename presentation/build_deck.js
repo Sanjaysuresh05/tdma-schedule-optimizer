@@ -144,7 +144,7 @@ pres.addSection({ title: "Introduction" });
   });
   s.addNotes("Opening: the task is a centralised TDMA scheduler (Part 1, mandatory) plus EMANE enforcement (Part 2, bonus). " +
     "Three headline numbers: 9 slots, proven minimal, for the sample grid; zero collisions confirmed three independent ways; " +
-    "and in EMANE the schedule is enforced, 99.96 % delivery on links and 0 % off-links.");
+    `and in EMANE the schedule is enforced: ${D.emane.E1_optimized.on_mean} % delivery on links, 0 % off-links, and every sender is heard only in its planned slot.`);
 }
 
 // 2. The problem

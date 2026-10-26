@@ -12,7 +12,7 @@ Prepared by **Sanjay Suresh** · October 2026
 |---|---|
 | Part 1 (mandatory) | Python "Brain": networkx model, distance-2 colouring, slot minimisation with an optimality proof, CLI in the required format |
 | Part 2 (bonus) | EMANE 1.5.3 "Engine": TDMA radio-model profiles with 1 ms slots, an XML **and** ProtoBuf bridge, and a 16-node emulation that enforces the schedule |
-| Headline result | Sample 4×4 grid: **9 slots, proven optimal, 0 collisions**. In EMANE: **99.96 %** delivery on links, **0 %** off-links, and every node transmits only in its planned slot |
+| Headline result | Sample 4×4 grid: **9 slots, proven optimal, 0 collisions**. In EMANE: **99.88 %** delivery on links (99.91 % ± 0.06 over 5 seeds), **0 %** off-links, and each sender is heard only in its planned slot |
 
 </div>
 
@@ -67,9 +67,10 @@ The task asks for a centralised scheduler that assigns each radio of a TDMA netw
 | Collisions in any produced schedule | **0** | independent verifier; 300 + 638 simulated topologies; EMANE |
 | Spatial reuse (grid) | 1.78 transmitters/slot; throughput ×1.78 vs one-node-per-slot TDMA | simulator |
 | Benchmark (638 random/ring topologies, N = 13…200) | optimum reached and **proven** on **638/638**; mean runtime 1–2 ms at N = 16, ≤ 44 ms at N = 200 | `benchmarks/results/summary.md` |
-| EMANE E1 (Brain schedule) | 16/16 schedules accepted; every NEM transmits only in its planned slot; delivery on links **99.96 %**, off-links **0 %**; mean latency 5.7 ms (9 ms frame) | `emane/results/summary.md` |
-| EMANE E2 (one node's slot removed) | that node: **0 %** delivered, 540 queue-overflow drops; all others 99.98 % | same |
-| EMANE E3 (wrong, distance-1 schedule) | 84.5 % delivery measured vs **83.9 % predicted** by my simulator; 545 752 bytes lost to SINR (collisions) | same |
+| EMANE E1 (Brain schedule) | 16/16 schedules accepted; each sender's frames heard by its neighbours in its planned slot (99.89 %), 0 frames in unscheduled slots; delivery on links **99.88 %** (5 seeds: **99.91 % ± 0.06**), off-links **0 %**; mean latency 5.7 ms (9 ms frame) | `emane/results/summary.md` |
+| EMANE E2 (one node's slot removed) | that node: **0 frames** on the air, 0 % delivered, 532 queue-overflow drops; all others 99.99 % | same |
+| EMANE E3 (wrong, distance-1 schedule) | 84.8 % ± 0.1 delivery measured (5 seeds) vs **83.9 % predicted** by my simulator; 532 226 bytes lost to SINR (collisions) | same |
+| EMANE E4 / E5 (stress tests) | 10× load: 96.6 %, 0 collisions; free-space channel with no 500 m edge: 83.4 % (quantifies the unit-disk assumption) | same |
 | EMANE TDMA profile | 1 frame × K slots, **1000 µs slots** (100 µs guard), 2.4 GHz, 12 Mbit/s (1350 B/slot), 10 MHz, 30 dBm | `emane/results/*/scenario/` |
 | Tests | **91 automated tests**, all passing | `python -m pytest tests -q` |
 
@@ -131,7 +132,7 @@ I worked in five verified stages: model → optimiser → CLI/simulation → EMA
 | D8 | How to install EMANE without Docker or sudo? | Rootless: extract the official `.deb`s into a user sysroot; run nodes in unprivileged user/network namespaces | It works within the real constraints and changes nothing on the host system. |
 | D9 | How does EMANE learn the 500 m graph? | Precomputed pathloss generated from the same graph (90 dB on links, 200 dB otherwise) | EMANE's connectivity then *is* the Brain's model, which is required for "strictly based on the schedule". |
 | D10 | XML or ProtoBuf? | Both, and both are tested (E1 vs E1b) | It satisfies either reading of the requirement. |
-| D11 | How to prove enforcement, not just delivery? | Read EMANE's own `TxSlotStatusTable` (the slot index of every transmission), and run negative experiments (silenced node, wrong schedule) | Delivery alone could be coincidence. Slot indices and controlled failures are causal evidence. |
+| D11 | How to prove enforcement, not just delivery? | Compare, per link, the frames a receiver got in the sender's planned slot (`RxSlotStatusTable`) with the frames the sender put on the air (PHY); count receptions in unscheduled slots; run negative experiments (silenced node, wrong schedule) | Physical events at both ends are causal evidence. EMANE's `TxSlotStatusTable` only lists installed TX opportunities, so it cannot prove behaviour (a reviewer caught my first use of it). |
 
 **Thought process on difficulty.** For random unit-disk deployments, ω(G²) is almost always equal to χ(G²), so good greedy orders already find the optimum and the lower bound proves it. Heuristic quality matters where χ > ω. I therefore added **ring topologies** to the benchmark. In 19 of 28 rings the optimum is one slot above the clique bound, and only the exact search can prove it. The portfolio + proof design is built for exactly this case.
 
@@ -248,7 +249,7 @@ The small multiples below show, for each slot, the transmitters (filled) and the
 
 ## 9. Part 2: EMANE installation and TDMA profiles
 
-* **Installation.** EMANE 1.5.3 (released July 2025) was installed on WSL2 Ubuntu 24.04 from the official Adjacent Link bundle [11].
+* **Installation.** EMANE 1.5.3 (released July 2025) was installed on WSL2 Ubuntu 24.04 from the official Adjacent Link bundle [11], whose SHA-256 is verified before installation.
     * Neither Docker nor a sudo password was available. `emane/install_rootless.sh` extracts the needed packages with `dpkg-deb -x` into `~/vmn-emane/sysroot` and fetches missing libraries (libprotobuf, python3-protobuf, libpcre3, …) from the Ubuntu archive.
     * Experiments run inside an unprivileged user + network + mount namespace. Nothing on the system is modified.
     * `emane/docker/Dockerfile` provides the "one consolidated container" alternative. It follows the official instructions and is clearly marked as *not built here*.
@@ -280,36 +281,60 @@ The generated schedule for the grid (Appendix B) has the same 9 slots as the Bra
 
 **Testbed** (`emane/runner/`):
 
-* a hub bridge with 16 node namespaces;
-* one EMANE platform per node;
-* events published from the hub;
-* each node sends Poisson UDP broadcast probes, 40 packets/s for 20 s, with exact one-way latency (shared clock);
-* statistics collected from every NEM's control port.
+* a hub bridge with 16 node network namespaces, all inside one unprivileged user + network + mount + PID namespace;
+* one EMANE platform per node, with IPv6 disabled so that only probe traffic uses the radio;
+* pathloss and schedule events published from the hub;
+* **traffic starts only after every NEM reports the full schedule accepted** (`scheduleAcceptFull = 1`, 0 rejects);
+* each node sends Poisson UDP broadcast probes for 20 s, with exact one-way latency (shared clock);
+* statistics are collected from every NEM's control port.
 
-| Experiment | Slots | Delivery on 84 links (mean / min) | Off-link | Accepted | TX only in planned slot | Latency | Collision drops |
+**How enforcement is proven.** The evidence is non-circular, from physical events at both ends. Take every directed link t → r where t is the only neighbour of r scheduled in t's slot. Compare:
+
+* the frames r received in that slot (EMANE `RxSlotStatusTable` at r), with
+* the frames t actually put on the air (EMANE PHY `BroadcastPacketAcceptTable0` at t).
+
+Frames received in a slot where r has *no* scheduled neighbour are counted separately as "stray" receptions, which must be 0. EMANE's `TxSlotStatusTable` is **not** used as evidence. It lists the TX *opportunities* of the installed schedule, so it only confirms that the schedule was installed. The independent reviewer pointed this out about my first analysis; see §12.
+
+| Experiment | Slots | Load (pkt/s/node) | Delivery on 500 m links (mean / min) | Non-links (max) | Frames heard in sender's slot / sent | Stray valid receptions | Collision (SINR) drops |
 |---|---|---|---|---|---|---|---|
-| **E1** Brain schedule, XML route | 9 | **99.96 % / 99.62 %** | **0.00 %** | 16/16 | **16/16** | 5.71 ms | **0** |
-| **E1b** same, ProtoBuf route | 9 | 99.94 % / 99.64 % | 0.00 % | 16/16 | 16/16 | 5.76 ms | 0 |
-| **E2** Node_06's TX slot removed | 9 | others 99.98 %; **Node_06 → 0.0 %** | 0.00 % | 16/16 | 16/16 | 5.69 ms | 0 (540 queue overflows) |
-| **E3** distance-1 schedule (wrong) | 4 | **84.50 % / 59.22 %** | 0.00 % | 16/16 | 16/16 | 3.22 ms | **545 752 B** |
+| **E1** Brain schedule, XML route | 9 | 40 | **99.88 % / 99.38 %** | **0.00 %** | **99.89 %** (min 99.70 %, 84 links) | **0** | **0** |
+| **E1b** same, ProtoBuf route | 9 | 40 | 99.93 % / 99.51 % | 0.00 % | 99.93 % | 0 | 0 |
+| **E2** Node_06's TX slot removed | 9 | 40 | others 99.99 %; **Node_06: 0.0 %, 0 PHY frames** | 0.00 % | 99.98 % | 0 | 0 (532 queue overflows) |
+| **E3** distance-1 schedule (wrong) | 4 | 40 | **84.36 % / 58.21 %** | 0.00 % | 99.58 % (20 unshared links) | 0 | **532 226 B** |
+| **E4** E1 at 10× load | 9 | 400 | 96.63 % / 93.42 % | 0.00 % | 96.78 % | 0 | 0 |
+| **E5** E1 over free space, every pair | 9 | 40 | **83.42 % / 41.55 %** | **98.83 %** | n/a (channel ≠ planned graph) | n/a | **4 910 450 B** |
 
-![EMANE: planned vs observed slot matrix](figures/emane_slot_enforcement.png)
+All 16 NEMs accepted every schedule, with 0 rejects, in all runs. **Replication** with traffic seeds 1–5:
+
+* E1: **99.91 % ± 0.06** (95 % CI);
+* E3: **84.78 % ± 0.13**, against **83.9 %** predicted by my slot-level simulator.
+
+![EMANE: plan vs observed receptions per slot](figures/emane_slot_enforcement.png)
+
+![Frames heard in the sender's slot vs frames sent](figures/emane_slot_attribution.png)
 
 **Interpretation**
 
-* **Enforcement.** EMANE's own `TxSlotStatusTable` shows every NEM transmitting only in the slot index assigned by the Brain. The planned and observed matrices above are identical.
-* **Permit vs drop.**
-    * Packets are permitted on graph links (99.96 %) and dropped for non-neighbours (0 %; PHY "Rx Sensitivity" drops).
-    * A node without a TX slot never transmits. Its 795 queued packets minus the 255-packet queue depth gives exactly 540 overflow drops.
-    * A schedule that breaks the 2-hop rule produces collisions: MAC SINR drops and RX-lock slot errors.
-* **Latency.** It matches TDMA theory. The mean wait for one's slot is half a frame (4.5 ms for 9 slots), plus about 1 ms of transmission. The worst case is about one frame plus one slot (10 ms). Measured: 5.7 ms mean and 10.2 ms p99. With the 4-slot frame of E3: 3.2 ms.
-* **Independent model check.** For E3 my slot-level simulator, at the same load, predicted 83.9 % delivery and EMANE measured 84.5 %. Per link the points lie on the diagonal: about 60 % for links with two hidden interferers and about 85 % for links with one.
+* **Permitted where planned.** Every scheduled link delivers. Each sender's frames are heard by its neighbours in its planned slot (99.89 %, at least 99.70 % on every link). No frame arrives in a slot where the receiver has no scheduled neighbour (0 in every run), and nothing crosses a non-link (0 %).
+* **Dropped where the schedule says.**
+    * A node without a TX slot puts **0 frames** on the air. Its 787 probes minus the 255-packet queue depth give exactly 532 overflow drops.
+    * A schedule that violates the 2-hop rule collides at the hidden-terminal receivers the verifier names: MAC SINR drops and RX-lock errors.
+* **Latency follows TDMA theory.** The wait for one's slot is uniform over the frame, so the mean is half a frame (4.5 ms for 9 slots) plus about one slot. Measured: 5.73 ms mean and 10.15 ms p99, close to frame + slot = 10 ms. With the 4-slot frame of E3: 3.24 ms.
+* **Independent model check.** For E3, the simulator and EMANE agree link by link: about 60 % with two hidden interferers, about 85 % with one, 100 % with none. EMANE runs a reproducible 0.9 pp above the simulator. The likely cause is EMANE's packet aggregation (two queued probes leave in one transmission); I identified this but did not test it separately.
+* **Residual E1 loss (0.12 %) is host timing, not scheduling.**
+    * EMANE missed 0.16 % of TX slots (76 of 47 703), and avgTimedEventLatency was 108–117 µs.
+    * Every log contains "Unable to set Real Time Priority": a rootless run cannot use realtime scheduling.
+    * There were 0 SINR drops and 0 RX-during-TX errors.
+* **E4 (10× load).** Several probes are aggregated per 1 ms slot (1350 B), with 0 queue overflows and 0 collisions. The 3.4 % loss is slot-boundary timing errors with longer frames on this host.
+* **E5 (physical channel, a deliberate stress test of the task's assumption).** With free-space loss for every pair (3 dBm, so the 100 % decode edge is about 500 m), there is no hard edge:
+    * 600 m pairs are still received about 98 % of the time;
+    * co-slot transmitters 900 m apart are only about 6.5 dB weaker than a 424 m link, below the 9 dB that 12 Mbit/s needs.
+    * The 500 m distance-2 schedule therefore collides.
+    * The remedy is a modelling choice inside the Brain: plan with an interference radius (`--range`) that covers the real interference range, use power control, or use a lower data rate with a lower SINR threshold.
 
 ![Delivery matrices](figures/emane_delivery_matrices.png)
 
 ![E3 predicted vs measured](figures/emane_e3_predicted_vs_measured.png)
-
-* **The residual 0.04 % loss in E1 is explained.** EMANE reports 88 missed TX slots out of 47 703 (0.18 %). It cannot use realtime scheduling without root ("Unable to set Real Time Priority" in the logs). There were no SINR drops and no RX-during-TX errors, so the loss is a host timing effect, not a scheduling one.
 
 <div class="pagebreak"></div>
 
@@ -330,7 +355,9 @@ The generated schedule for the grid (Appendix B) has the same 9 slots as the Bra
 * **Independent reviewer 1 (Part 1).** A separate AI reviewer with no access to the design reasoning ran 320 fuzzed CLI runs with its own checker, an ILP and adversarial inputs.
     * It found **no collision and no false optimality claim**.
     * It reported 8 robustness defects at the input/output boundary: encoding on redirected output, overflow paths, Unicode digits in names, exit-code mismatch, a micrometre-scale range tolerance, and name sanitising. **All 8 were fixed**, each with a regression test (`reports/stage_3_report.md`).
-* **Independent reviewer 2 (Part 2)** reviewed the bridge, the EMANE configuration and the raw results. Its findings and the fixes are recorded in `FINAL_REPORT.md`.
+* **Independent reviewer 2 (Part 2).** A separate AI reviewer recomputed every EMANE number from the raw files and found them consistent with the summary. It confirmed the schedule XML, the ProtoBuf events and the pathloss events are correct and accepted by EMANE.
+    * **It also found a real flaw.** My first "each node transmits only in its slot" evidence came from `TxSlotStatusTable`, which lists TX *opportunities*, so it compared the schedule with itself. I replaced it with the receiver-side test in §11.
+    * **Other fixes from that review:** traffic gated on schedule acceptance; IPv6 disabled; per-process exit checks and start-skew logging; a PID namespace for cleanup; bundle SHA-256 verification; 5-seed replication; the high-load (E4) and physical-channel (E5) runs; and two corrected claims (no capture effect on this grid; realtime `-r` only outside a user namespace). Details: `reports/stage_4_report.md`.
 * **Reproducibility.** One issue was found during re-runs: three *networkx* baseline strategies depend on Python's string-hash seed. The benchmark pins the seed, and my own algorithms use integer indices. Benchmark tables are identical across runs.
 
 ## 13. How to run
@@ -350,10 +377,10 @@ python3 emane/analysis/analyze.py
 
 ## 14. Assumptions and known limitations
 
-* **Interference model.** The unit-disk / protocol model is used: interference range = communication range = 500 m. This is exactly the model the task defines. Real SINR interference has a tail beyond 500 m, which a stricter variant could cover with a larger interference radius. The EMANE channel is deliberately set to this model.
+* **Interference model.** The unit-disk / protocol model is used: interference range = communication range = 500 m. This is exactly the model the task defines, and the EMANE channel in E1–E4 is deliberately set to it. E5 quantifies the gap: with free-space propagation the interference range exceeds 2 hops and the 500 m schedule collides (83.4 % delivery). Remedies are planning with a larger interference radius (`--range`), power control, or a lower data rate.
 * **Node-based broadcast scheduling.** Each node gets one slot per frame, as the task defines. Link (unicast) scheduling, traffic-dependent slot counts and dynamic or mobile topologies are outside the stated problem.
 * **NP-hardness.** At large N the exact certificate may hit its limits. The tool then reports "best found; optimum in [LB, K]". This never happened on any benchmark instance up to N = 200.
-* **EMANE.** It ran rootless on WSL2 without realtime priority (0.18 % missed TX slots). Only broadcast traffic was tested. The Dockerfile was not built (no Docker on the development machine).
+* **EMANE.** It ran rootless on WSL2 without realtime priority, missing 0.13–0.47 % of TX slots per run; this causes the 0.1 % residual loss in E1 and the 3.4 % in E4. Only broadcast traffic was tested. The Dockerfile was not built (no Docker on the development machine).
 
 ## 15. References
 

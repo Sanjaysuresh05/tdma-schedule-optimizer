@@ -1,0 +1,15 @@
+# Keep scripts and text LF so they run unchanged in Linux/WSL after a Windows checkout.
+* text=auto eol=lf
+*.sh  text eol=lf
+*.py  text eol=lf
+*.js  text eol=lf
+*.md  text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+*.xsd text eol=lf
+*.txt text eol=lf
+*.log text eol=lf
+Dockerfile text eol=lf
+*.png  binary
+*.pdf  binary
+*.pptx binary
